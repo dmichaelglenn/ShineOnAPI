@@ -59,6 +59,29 @@ function createResource (Model) {
     };
 }
 
+function deleteResource (Model, paramId) {
+    return function (req, res, next) {
+        Model.findByIdAndRemove(req.params[paramId], function (err, doc) {
+            if (err) return next(err);
+            res.json(doc);
+        });
+    };
+}
+
+function updateResource (Model, paramId) {
+    return function (req, res, next) {
+        Model.findById(req.params[paramId], function (err, model) {
+            if (err) return next(err);
+            Object.keys(req.body).forEach(function (k) {
+                model[k] = req.body[k];
+            });
+            model.save(function (err, doc) {
+                if (err) return next(err);
+                res.json(doc);
+            });
+        });
+    };
+}
 
 
 
@@ -70,11 +93,9 @@ app.post("/albums", createResource(Album));
 
 app.get("/albums/:album", getResource(Album, 'album'));
 
-app.put("/albums/:id", function(req, res) {
-});
+app.put("/albums/:id", updateResource(Album, 'album'));
 
-app.delete("/albums/:id", function(req, res) {
-});
+app.delete("/albums/:album", deleteResource(Album, 'album'));
 
 app.use(function (req, res, next) {
     res.status(404).json({ error: 'Resource Not Found' });
