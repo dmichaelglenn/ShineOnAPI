@@ -49,7 +49,15 @@ function getResource (Model, paramId) {
     };
 }
 
-
+function createResource (Model) {
+    return function (req, res, next) {
+        var resource = new Model(req.body);
+        resource.save(function (err, resource) {
+            if (err) return next(err);
+            res.json(resource);
+        });
+    };
+}
 
 
 
@@ -58,14 +66,7 @@ function getResource (Model, paramId) {
 
 app.get("/albums", listResources(Album));
 
-app.post("/albums", function(req, res) {
-});
-
-/*  "/contacts/:id"
- *    GET: find contact by id
- *    PUT: update contact by id
- *    DELETE: deletes contact by id
- */
+app.post("/albums", createResource(Album));
 
 app.get("/albums/:album", getResource(Album, 'album'));
 
