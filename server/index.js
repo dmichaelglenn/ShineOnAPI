@@ -9,8 +9,8 @@ var cors = require('cors');
 // var mongoClient = mongo.mongoClient;
 // var ObjectID = mongodb.ObjectID;
 
-mongoose.connect(process.env.MONGODB_URI);
-// mongoose.connect("mongodb://localhost:27017/pinkfloyd");
+// mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect("mongodb://heroku_51z2zzw9:e4002989ol707f45f96iqe8vub@ds047666.mlab.com:47666/heroku_51z2zzw9");
 
 var AlbumSchema = mongoose.Schema({
     name: String,
