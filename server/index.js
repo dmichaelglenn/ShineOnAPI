@@ -4,15 +4,20 @@ var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
+var cors = require('cors');
 // var mongodb = require("mongodb");
 // var mongoClient = mongo.mongoClient;
 // var ObjectID = mongodb.ObjectID;
 
-
-mongoose.connect(process.env.MONGODB_URI);
+// mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect("mongodb://localhost:27017/pinkfloyd");
 
 var AlbumSchema = mongoose.Schema({
-    name: String
+    name: String,
+    year: Number,
+    trackList: Array,
+    imgUrl: String,
+    wikiUrl: String
 });
 
 var Album = mongoose.model('Album', AlbumSchema);
@@ -21,15 +26,10 @@ var Album = mongoose.model('Album', AlbumSchema);
 var ALBUMS_COLLECTION = "albums";
 
 var app = express();
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/../public"));
 app.use(bodyParser.json());
+app.use(cors());
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-
-/*  "/contacts"
- *    GET: finds all contacts
- *    POST: creates a new contact
- */
 
 function listResources (Model) {
     return function (req, res, next) {
@@ -106,7 +106,6 @@ app.use(function (err, req, res, next) {
     res.status(500).json({ error: err });
 });
 
-// Initialize the app.
 var server = app.listen(process.env.PORT || 8080, function () {
   var port = server.address().port;
   console.log("App now running on port", port);

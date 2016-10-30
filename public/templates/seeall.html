@@ -1,0 +1,6 @@
+<h2>All albums in database</h2>
+<div ng-repeat="album in allAlbums">
+    <a href="{{album.wikiUrl}}">{{album.name}}</a><br>
+    <img src="{{album.imgUrl}}" alt="{{album.name}}">
+    <p ng-repeat="track in album.trackList">{{track}}</p>
+</div>

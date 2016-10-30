@@ -1,0 +1,8 @@
+<h2>Please select an album</h2>
+<form>
+    <select ng-change="goToAlbum()" ng-model="selectedAlbum">
+        <option ng-repeat="album in allAlbums" value="{{album._id}}">{{album.name}}</option>
+    </select>
+</form>
+
+<!-- ng-controller="navController" -->

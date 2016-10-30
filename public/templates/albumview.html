@@ -1,0 +1,10 @@
+
+        <h1>{{albumData.name}}</h1>
+        <h2>Released in {{albumData.year}}</h2>
+        <img src="{{albumData.imgUrl}}" alt="album cover">
+        <ul>
+            <li ng-repeat="song in albumData.trackList">{{song}}</li>
+        </ul>
+        <h3>Learn more about this album at <a href="{{albumData.wikiUrl}}">Wikipedia</a></h3>
+        <br>
+        <h4><a href="#/">Back to album select</a></h4>
