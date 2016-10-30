@@ -4,3 +4,11 @@ body {
     background-image: url("pink.jpeg");
     background-size: cover;
 }
+
+a {
+    color: pink;
+}
+
+.navlink {
+    padding-left: 2em;
+}
